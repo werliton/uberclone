@@ -5,6 +5,8 @@ import { getPixelSize } from '../../utils'
 import Search from '../Search'
 import Directions from '../Directions'
 import imageMarker from '../../../src/assets/logo.png'
+import { LocationBox, LocationText, LocationTimeBox, LocationTimeText, LocationTimeTextSmall } from './styles'
+
 
 export default class Map extends Component {
 
@@ -12,19 +14,19 @@ export default class Map extends Component {
         region: null,
         destination: null
     }
-    async componentDidMount(){
+    async componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             ({ coords: { latitude, longitude } }) => {
                 this.setState({
-                    region: { 
-                        latitude, 
-                        longitude, 
+                    region: {
+                        latitude,
+                        longitude,
                         latitudeDelta: 0.0143,
-                        longitudeDelta: 0.0134 
+                        longitudeDelta: 0.0134
                     }
                 })
-             }, // Sucesso
-            () => {}, // Erro
+            }, // Sucesso
+            () => { }, // Erro
             {
                 timeout: 2000,
                 enableHighAccuracy: true, // Pegar location via GPS do user
@@ -33,7 +35,7 @@ export default class Map extends Component {
         )
     }
 
-    handleLocationSelected = ( data, { geometry } ) => {
+    handleLocationSelected = (data, { geometry }) => {
         const { location: { lat: latitude, lng: longitude } } = geometry
 
         this.setState({
@@ -46,7 +48,7 @@ export default class Map extends Component {
     }
 
     render() {
-        const  { region, destination } = this.state
+        const { region, destination } = this.state
         return (
             <View style={{ flex: 1 }}>
                 <MapView
@@ -54,32 +56,50 @@ export default class Map extends Component {
                     region={region}
                     showsUserLocation
                     loadingEnabled
-                    ref={ el=> this.mapView = el }
+                    ref={el => this.mapView = el}
                 >
-                {
-                    destination &&
-                    <Fragment>
-                    <Directions
-                        origin={region}
-                        destination={destination}
-                        onReady={ result => {
-                            this.mapView.fitToCoordinates(result.coordinates, {
-                                edgePadding: {
-                                    right: getPixelSize(50),
-                                    left: getPixelSize(50),
-                                    top: getPixelSize(50),
-                                    bottom: getPixelSize(50)
-                                }
-                            })
-                        }}
-                    />
-                    <Marker 
-                        coordinate={destination}
-                        anchor={{ x:0, y:0 }}
-                        image={imageMarker}
-                    />
-                    </Fragment>
-                }
+                    {
+                        destination &&
+                        <Fragment>
+                            <Directions
+                                origin={region}
+                                destination={destination}
+                                onReady={result => {
+                                    this.mapView.fitToCoordinates(result.coordinates, {
+                                        edgePadding: {
+                                            right: getPixelSize(50),
+                                            left: getPixelSize(50),
+                                            top: getPixelSize(50),
+                                            bottom: getPixelSize(50)
+                                        }
+                                    })
+                                }}
+                            />
+                            <Marker
+                                coordinate={destination}
+                                anchor={{ x: 0, y: 0 }}
+                                image={imageMarker}
+                            >
+                                <LocationBox>
+                                    <LocationText>{destination.title}</LocationText>
+                                </LocationBox>
+                            </Marker>
+
+                            <Marker
+                                coordinate={region}
+                                anchor={{ x: 0, y: 0 }}
+                            >
+                                <LocationBox>
+                                    <LocationTimeBox>
+                                        <LocationTimeText>31</LocationTimeText>
+                                        <LocationTimeTextSmall>MIN</LocationTimeTextSmall>
+                                    </LocationTimeBox>
+                                    <LocationText>Rua dos Nobres</LocationText>
+                                </LocationBox>
+                            </Marker>
+
+                        </Fragment>
+                    }
                 </MapView>
                 <Search onLocationSelected={this.handleLocationSelected} />
             </View>
