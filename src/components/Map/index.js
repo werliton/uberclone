@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import MapView, { Marker } from 'react-native-maps'
+import GeoCoder from 'react-native-geocoding'
 import { View } from 'react-native';
 import { getPixelSize } from '../../utils'
 import Search from '../Search'
@@ -13,12 +14,18 @@ export default class Map extends Component {
     state = {
         region: null,
         destination: null,
-        duration: null
+        duration: null,
+        location: null
     }
     async componentDidMount() {
         navigator.geolocation.getCurrentPosition(
-            ({ coords: { latitude, longitude } }) => {
+            async ({ coords: { latitude, longitude } }) => {
+                const response = await GeoCoder.from({ latitude, longitude })
+                const address = response.results[0].formatted_address
+                const location = address.substring(0, address.indexOf(','))
+
                 this.setState({
+                    location,
                     region: {
                         latitude,
                         longitude,
@@ -49,7 +56,7 @@ export default class Map extends Component {
     }
 
     render() {
-        const { region, destination, duration } = this.state
+        const { region, destination, duration, location } = this.state
         return (
             <View style={{ flex: 1 }}>
                 <MapView
@@ -98,7 +105,7 @@ export default class Map extends Component {
                                         <LocationTimeText>{duration}</LocationTimeText>
                                         <LocationTimeTextSmall>MIN</LocationTimeTextSmall>
                                     </LocationTimeBox>
-                                    <LocationText>Rua dos Nobres</LocationText>
+                                    <LocationText>{location}</LocationText>
                                 </LocationBox>
                             </Marker>
 
