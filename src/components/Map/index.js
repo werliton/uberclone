@@ -12,7 +12,8 @@ export default class Map extends Component {
 
     state = {
         region: null,
-        destination: null
+        destination: null,
+        duration: null
     }
     async componentDidMount() {
         navigator.geolocation.getCurrentPosition(
@@ -48,7 +49,7 @@ export default class Map extends Component {
     }
 
     render() {
-        const { region, destination } = this.state
+        const { region, destination, duration } = this.state
         return (
             <View style={{ flex: 1 }}>
                 <MapView
@@ -65,6 +66,9 @@ export default class Map extends Component {
                                 origin={region}
                                 destination={destination}
                                 onReady={result => {
+                                    this.setState({
+                                        duration: Math.floor(result.duration)
+                                    })
                                     this.mapView.fitToCoordinates(result.coordinates, {
                                         edgePadding: {
                                             right: getPixelSize(50),
@@ -91,7 +95,7 @@ export default class Map extends Component {
                             >
                                 <LocationBox>
                                     <LocationTimeBox>
-                                        <LocationTimeText>31</LocationTimeText>
+                                        <LocationTimeText>{duration}</LocationTimeText>
                                         <LocationTimeTextSmall>MIN</LocationTimeTextSmall>
                                     </LocationTimeBox>
                                     <LocationText>Rua dos Nobres</LocationText>
