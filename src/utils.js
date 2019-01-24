@@ -7,4 +7,4 @@ export function getPixelSize(pixels){
     })
 }
 
-export const apikey = 'AIzaSyC4ERcqE375LAdVM8TRAMUuDE33sbYB6jI'
+export const apikey = 'APIKEY'
