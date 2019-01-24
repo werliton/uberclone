@@ -15,8 +15,11 @@ O objetivo desse repositório é recriar a interface do Uber com React Native pe
 [Styled Components][5] | 4.1.3
 
 
+> Projeto com os créditos de Diego Fernandes no vídeo: [Recriando a interface do Uber com React Native | Diego Fernandes][6]
+
 [1]:https://github.com/react-native-community/react-native-maps
 [2]:https://github.com/bramus/react-native-maps-directions
 [3]:https://github.com/FaridSafi/react-native-google-places-autocomplete
 [4]:https://github.com/marlove/react-native-geocoding
 [5]:https://www.styled-components.com/
+[6]: https://www.youtube.com/watch?v=bg-U0xZwcRk&feature=youtu.be
