@@ -2,12 +2,15 @@ import React, { Component, Fragment } from 'react';
 import MapView, { Marker } from 'react-native-maps'
 import GeoCoder from 'react-native-geocoding'
 import { View } from 'react-native';
-import { getPixelSize } from '../../utils'
+import { getPixelSize, apikey } from '../../utils'
 import Search from '../Search'
 import Directions from '../Directions'
 import imageMarker from '../../../src/assets/logo.png'
 import { LocationBox, LocationText, LocationTimeBox, LocationTimeText, LocationTimeTextSmall } from './styles'
+import Details from '../Details';
+import { Back } from '../Details/styles';
 
+GeoCoder.init(apikey)
 
 export default class Map extends Component {
 
@@ -55,6 +58,10 @@ export default class Map extends Component {
         })
     }
 
+    handleBack = () => {
+        this.setState({ destination: null })
+    }
+
     render() {
         const { region, destination, duration, location } = this.state
         return (
@@ -81,7 +88,7 @@ export default class Map extends Component {
                                             right: getPixelSize(50),
                                             left: getPixelSize(50),
                                             top: getPixelSize(50),
-                                            bottom: getPixelSize(50)
+                                            bottom: getPixelSize(350)
                                         }
                                     })
                                 }}
@@ -112,7 +119,17 @@ export default class Map extends Component {
                         </Fragment>
                     }
                 </MapView>
-                <Search onLocationSelected={this.handleLocationSelected} />
+                {
+                    destination ?
+                        <Fragment>
+                            <Back onPress={this.handleBack}>
+                                <Image source={backImage}/>
+                            </Back>
+                            <Details />
+                        </Fragment>
+                        :
+                        <Search onLocationSelected={this.handleLocationSelected} />
+                }
             </View>
         )
     }

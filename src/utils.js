@@ -6,3 +6,5 @@ export function getPixelSize(pixels){
         android: PixelRatio.getPixelSizeForLayoutSize(pixels)
     })
 }
+
+export const apikey = 'AIzaSyC4ERcqE375LAdVM8TRAMUuDE33sbYB6jI'
