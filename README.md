@@ -1,5 +1,5 @@
 # Uber Clone
-O objetivo desse repositório é recriar a interface do Uber com React Native permitindo ao usuário a seguintes possibilidades:
+O objetivo desse repositório é recriar a interface do Uber com React Native permitindo ao usuário as seguintes possibilidades:
 
 - Visualizar mapa;
 - Traçar uma rota partindo da sua localização inicial até um destino nomeando a origem e o destino;
