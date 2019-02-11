@@ -26,7 +26,8 @@ export const TypeDescription = styled.Text`
     font-size: 14px;
 `
 export const TypeImage = styled.Image`
-    height: 80px;
+    height: 40px;
+    width: 40px;
     margin: 10px 0;
 `
 export const RequestButton = styled.TouchableOpacity`

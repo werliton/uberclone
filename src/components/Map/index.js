@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import MapView, { Marker } from 'react-native-maps'
 import GeoCoder from 'react-native-geocoding'
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { getPixelSize, apikey } from '../../utils'
 import Search from '../Search'
 import Directions from '../Directions'
@@ -122,9 +122,9 @@ export default class Map extends Component {
                 {
                     destination ?
                         <Fragment>
-                            <Back onPress={this.handleBack}>
+                            {/* <Back onPress={this.handleBack}>
                                 <Image source={backImage}/>
-                            </Back>
+                            </Back> */}
                             <Details />
                         </Fragment>
                         :
